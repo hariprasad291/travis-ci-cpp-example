@@ -28,19 +28,18 @@ stages:
   - test
 
 jobs:
-  #amd64 job
+  include:
+      #amd64 job
     - os: linux-amd64
       env:
         - ARCH=amd64
         - ARCH_STRING=""
-  
-    #ppc64le job
+        #ppc64le job
     - os: linux-ppc64le
       dist: bionic
       env:
         - ARCH=ppc64le
-        - ARCH_STRING="-ppc64le"
-  include:
+        - ARCH_STRING="-ppc64le" 
     - stage: build
       # Build steps
       script: 
