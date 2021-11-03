@@ -21,15 +21,37 @@ before_script:
 
 # Compiler selection
 compiler:
-  - clang
   - gcc
 
+stages:
+  - build 
+  - test
 
-# Build steps
-script: 
-  - cd ${TRAVIS_BUILD_DIR}
-  - make && ./test-library.out
-
+jobs:
+  #amd64 job
+    - os: linux-amd64
+      env:
+        - ARCH=amd64
+        - ARCH_STRING=""
+  
+    #ppc64le job
+    - os: linux-ppc64le
+      dist: bionic
+      env:
+        - ARCH=ppc64le
+        - ARCH_STRING="-ppc64le"
+  include:
+    - stage: build
+      # Build steps
+      script: 
+        - cd ${TRAVIS_BUILD_DIR}
+        - make && ./test-library.out
+    - stage: build
+      script:
+        - mkdir hari
+    - stage: test
+      script:
+        - echo "testing for multi arcch"
 
 after_success:
 - cd ${TRAVIS_BUILD_DIR}
@@ -38,5 +60,3 @@ after_success:
 - lcov --list coverage.info # debug before upload
 #- coveralls-lcov --repo-token ${COVERALLS_TOKEN} coverage.info # uploads to coveralls.. for a private repo using a token
 - coveralls-lcov  coverage.info #for open source 
-
-
