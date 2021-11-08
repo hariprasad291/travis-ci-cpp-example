@@ -29,7 +29,11 @@ stages:
 
 jobs:
   include:
-      #amd64 job
+    - stage: build
+      # Build steps
+      script: 
+        - cd ${TRAVIS_BUILD_DIR}
+        - make && ./test-library.out
     - os: linux-amd64
       env:
         - ARCH=amd64
@@ -39,12 +43,8 @@ jobs:
       dist: bionic
       env:
         - ARCH=ppc64le
-        - ARCH_STRING="-ppc64le" 
-    - stage: build
-      # Build steps
-      script: 
-        - cd ${TRAVIS_BUILD_DIR}
-        - make && ./test-library.out
+        - ARCH_STRING="-ppc64le"
+      
     - stage: build
       script:
         - mkdir hari
