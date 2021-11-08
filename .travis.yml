@@ -34,17 +34,13 @@ jobs:
       script: 
         - cd ${TRAVIS_BUILD_DIR}
         - make && ./test-library.out
-    - os: linux-amd64
+      os: 
+        - linux-ppc64le
+        - linux-amd64
       env:
-        - ARCH=amd64
-        - ARCH_STRING=""
-        #ppc64le job
-    - os: linux-ppc64le
-      dist: bionic
-      env:
-        - ARCH=ppc64le
-        - ARCH_STRING="-ppc64le"
-      
+        - if [os=linux-amd64]; then ARCH=amd64,ARCH_STRING=""
+        - if [os=linux-ppc64le]; then ARCH=ppc64le,ARCH_STRING="-ppc64le"
+             
     - stage: build
       script:
         - mkdir hari
