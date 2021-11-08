@@ -38,8 +38,8 @@ jobs:
         - linux-ppc64le
         - linux-amd64
       env:
-        - if [os=linux-amd64]; then ARCH=amd64,ARCH_STRING=""
-        - if [os=linux-ppc64le]; then ARCH=ppc64le,ARCH_STRING="-ppc64le"
+        - if [ "$TRAVIS_OS_NAME" = "linux-ppc64le" ]; then ARCH=amd64,ARCH_STRING=""  ; fi
+        - if [ "$TRAVIS_OS_NAME" = "linux-amd64" ]; then ARCH=ppc64le,ARCH_STRING="-ppc64le"  ; fi
               
     - stage: build
       script:
