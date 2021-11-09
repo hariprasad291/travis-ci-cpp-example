@@ -34,12 +34,8 @@ jobs:
       script: 
         - cd ${TRAVIS_BUILD_DIR}
         - make && ./test-library.out
-      os: 
-        - linux-amd64
-        - linux-ppc64le
+      os: linux-ppc64le
       env:
-        - ARCH=amd64
-        - ARCH_STRING=""
         - ARCH=ppc64le
         - ARCH_STRING="-ppc64le"              
     - stage: build
