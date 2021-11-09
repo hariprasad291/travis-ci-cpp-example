@@ -1,6 +1,11 @@
 #travis configuration for coverage testing
 language: c
 
+os: linux
+arch:
+  - amd64
+  - ppc64le
+
 #sudo: false # only for faster builds
 
 install:
@@ -33,11 +38,7 @@ jobs:
       # Build steps
       script: 
         - cd ${TRAVIS_BUILD_DIR}
-        - make && ./test-library.out
-      os: linux-ppc64le
-      env:
-        - ARCH=ppc64le
-        - ARCH_STRING="-ppc64le"              
+        - make && ./test-library.out           
     - stage: build
       script:
         - mkdir hari
