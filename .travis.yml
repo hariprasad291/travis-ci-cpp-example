@@ -34,17 +34,21 @@ jobs:
       script: 
         - cd ${TRAVIS_BUILD_DIR}
         - make && ./test-library.out
-      matrix:
-        include:
-          - os: linux-amd64
-            env:
-              - ARCH=amd64
-              - ARCH_STRING=""
-          - os: linux-ppc64le
-            dist: bionic
-            env:
-              - ARCH=ppc64le
-              - ARCH_STRING="-ppc64le"
+      os: linux-amd64
+      env:
+        - ARCH=amd64
+        - ARCH_STRING=""
+        
+    - stage: build
+      # Build steps
+      script: 
+        - cd ${TRAVIS_BUILD_DIR}
+        - make && ./test-library.ou
+      os: linux-ppc64le
+      dist: bionic
+      env:
+        - ARCH=ppc64le
+        - ARCH_STRING="-ppc64le"
               
     - stage: build
       script:
