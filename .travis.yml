@@ -35,15 +35,14 @@ jobs:
         - cd ${TRAVIS_BUILD_DIR}
         - make && ./test-library.out
       matrix:
-        include: 
-
+        include:
           - os: linux-amd64
             env:
               - ARCH=amd64
               - ARCH_STRING=""
           - os: linux-ppc64le
             dist: bionic
-           env:
+            env:
               - ARCH=ppc64le
               - ARCH_STRING="-ppc64le"
               
