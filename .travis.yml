@@ -1,5 +1,10 @@
 #travis configuration for coverage testing
-language: c
+language: 
+  - c
+  - python
+
+python:
+  - 3.6
 
 os: linux
 arch:
