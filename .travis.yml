@@ -41,7 +41,7 @@ jobs:
       os: linux-ppc64le
       dist: bionic
       env:
-        - name= build on power
+        - name= "build on power"
         - ARCH=ppc64le
         - ARCH_STRING="-ppc64le"
       script: 
@@ -52,7 +52,7 @@ jobs:
       # Build step
       os: linux-amd64
       env:
-        - name= build on X86
+        - name= "build on X86"
         - ARCH=amd64
         - ARCH_STRING=""
       script: 
