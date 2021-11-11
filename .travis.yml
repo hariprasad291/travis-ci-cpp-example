@@ -15,7 +15,6 @@ install:
 - wget http://ftp.de.debian.org/debian/pool/main/l/lcov/lcov_1.11.orig.tar.gz
 - tar xf lcov_1.11.orig.tar.gz
 - sudo make -C lcov-1.11/ install
-- source ~/virtualenv/python3.6/bin/active
 - sudo apt update && sudo apt install python3-cryptography
 - python -m pip install ansible==2.10.3 
 - pip3 install cryptography
