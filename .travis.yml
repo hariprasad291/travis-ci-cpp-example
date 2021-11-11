@@ -4,12 +4,7 @@ language:
   - python
 
 python:
-  - 3.6
-
-os: linux
-arch:
-  - amd64
-  - ppc64le
+  - "3.6"
 
 #sudo: false # only for faster builds
 
@@ -42,10 +37,28 @@ stages:
 jobs:
   include:
     - stage: build
-      # Build steps
+      # Build step
+      os: linux-ppc64le
+      dist: bionic
+      env:
+        - name= build on power
+        - ARCH=ppc64le
+        - ARCH_STRING="-ppc64le"
       script: 
         - cd ${TRAVIS_BUILD_DIR}
-        - make && ./test-library.out           
+        - make && ./test-library.out 
+    
+    - stage: build
+      # Build step
+      os: linux-amd64
+      env:
+        - name= build on X86
+        - ARCH=amd64
+        - ARCH_STRING=""
+      script: 
+        - cd ${TRAVIS_BUILD_DIR}
+        - make && ./test-library.out 
+
     - stage: build
       script:
         - mkdir hari
