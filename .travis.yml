@@ -15,7 +15,9 @@ install:
 - wget http://ftp.de.debian.org/debian/pool/main/l/lcov/lcov_1.11.orig.tar.gz
 - tar xf lcov_1.11.orig.tar.gz
 - sudo make -C lcov-1.11/ install
-- sudo apt update && sudo apt install apache2 -y 
+- source ~/virtualenv/python3.6/bin/active
+- sudo apt update && sudo apt install python3-cryptography
+- python -m pip install ansible==2.10.3 
 - pip3 install cryptography
 
 # install lcov to coveralls conversion + upload tool
@@ -44,17 +46,6 @@ jobs:
         - name= "build on power"
         - ARCH=ppc64le
         - ARCH_STRING="-ppc64le"
-      script: 
-        - cd ${TRAVIS_BUILD_DIR}
-        - make && ./test-library.out 
-    
-    - stage: build
-      # Build step
-      os: linux-amd64
-      env:
-        - name= "build on X86"
-        - ARCH=amd64
-        - ARCH_STRING=""
       script: 
         - cd ${TRAVIS_BUILD_DIR}
         - make && ./test-library.out 
