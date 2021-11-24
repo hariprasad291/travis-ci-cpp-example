@@ -50,6 +50,9 @@ jobs:
     - stage: build
       script:
         - mkdir hari
+      language: python
+      python:
+        - "3.6"
     - stage: test
       script:
         - echo "testing for multi arcch"
