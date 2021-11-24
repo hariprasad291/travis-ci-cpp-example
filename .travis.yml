@@ -1,6 +1,5 @@
 #travis configuration for coverage testing
-language: c
-language: python
+language: java
 python:
   - "3.6"
 
