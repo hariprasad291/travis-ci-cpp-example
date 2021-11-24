@@ -1,12 +1,6 @@
 #travis configuration for coverage testing
 language: 
-  - python
   - java
-jdk:
-  - "openjdk11" 
-python:
-  - "3.6"
-
 #sudo: false # only for faster builds
 
 install:
@@ -41,6 +35,9 @@ jobs:
     - stage: build
       # Build step
       os: linux-ppc64le
+      language: python
+      python:
+        - "3.6"
       dist: bionic
       env:
         - name= "build on power"
