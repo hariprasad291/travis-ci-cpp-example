@@ -2,6 +2,8 @@
 language: 
   - python
   - java
+jdk:
+  - "openjdk11" 
 python:
   - "3.6"
 
