@@ -50,9 +50,12 @@ jobs:
   include:
   - name: Job 1
     <<: *shared_job
+    script: echo "this is job for test1"
   - name: Job 2
     <<: *shared_job
-
+    script: 
+      - echo "this is job for test2"
+      - mkdir hari
 # jobs:
 #   include:
 #     - stage: build
