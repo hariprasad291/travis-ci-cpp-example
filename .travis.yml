@@ -35,13 +35,14 @@ script:
 #   - build 
 #   - test
 
-_shared_job: &shared_job
-#   - os: linux-ppc64le
-#     dist: bionic
-#     env:
-#       - name= "build on power"
-#       - ARCH=ppc64le
-#       - ARCH_STRING="-ppc64le" 
+_shared_job: 1shared_job
+   - os: linux-ppc64le
+     dist: bionic
+     env:
+      - name= "build on power"
+      - ARCH=ppc64le
+      - ARCH_STRING="-ppc64le" 
+_shared_job: 2shared_job
    - os: linux-amd64
      env:
       - ARCH= "x86_64"
@@ -49,10 +50,12 @@ _shared_job: &shared_job
 jobs:
   include:
   - name: Job 1
-    <<: *shared_job
+    <<: 1shared_job
+    <<: 2shared_job
     script: echo "this is job for test1"
   - name: Job 2
-    <<: *shared_job
+    <<: 1shared_job
+    <<: 2shared_job
     script: 
       - echo "this is job for test2"
       - mkdir hari
