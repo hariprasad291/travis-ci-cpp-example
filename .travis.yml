@@ -31,53 +31,32 @@ compiler:
 script: 
   - cd ${TRAVIS_BUILD_DIR}
   - make && ./test-library.out
-# stages:
-#   - build 
-#   - test
+stages:
+  - build:
+    matrix:
+      include:
+        - os: linux-ppc64le
+          dist: bionic
+          env:
+            - ARCH=ppc64le
+            - ARCH_STRING="-ppc64le"
+        - os: "x86_64"
+          env:
+            - ARCH="x86_64"
+            - ARCH_STRING=""
+  - test
 
-_shared_job: &shared_job
-  - os: linux-ppc64le
-    dist: bionic
-    env:
-      - ARCH=ppc64le
-      - ARCH_STRING="-ppc64le"
-#     - 2shared_job
-#         - os: linux-amd64
-#           env:
-#            - ARCH= "x86_64"
-#            - REPO_EXT=""
 jobs:
   include:
-  - name: Job 1
-    <<: *shared_job
-    script: echo "this is job for test1"
-  - name: Job 2
-    <<: *shared_job
-    script: 
-      - echo "this is job for test2"
-      - mkdir hari
-# jobs:
-#   include:
-#     - stage: build
-#       # Build step
-#       os: linux-ppc64le
-#       language: python
-#       python:
-#         - "3.6"
-#       dist: bionic
-#       env:
-#         - name= "build on power"
-#         - ARCH=ppc64le
-#         - ARCH_STRING="-ppc64le"
-#     - stage: build
-#       script:
-#         - mkdir hari
-#       language: python
-#       python:
-#         - "3.6"
-#     - stage: test
-#       script:
-#         - echo "testing for multi arcch"
+    - stage: build
+      # Build step
+      script: echo "It's working"
+    - stage: build
+      script:
+        - mkdir hari
+    - stage: test
+      script:
+        - echo "testing for multi arcch"
 
 after_success:
 - cd ${TRAVIS_BUILD_DIR}
