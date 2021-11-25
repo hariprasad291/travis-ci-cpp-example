@@ -1,6 +1,9 @@
 #travis configuration for coverage testing
 language: 
   - java
+language: python
+python:
+  - "3.6"
 #sudo: false # only for faster builds
 
 install:
@@ -33,7 +36,16 @@ script:
 #   - test
 
 _shared_job: &shared_job
-  script: echo "shared script config"
+  - os: linux-ppc64le
+    dist: bionic
+    env:
+      - name= "build on power"
+      - ARCH=ppc64le
+      - ARCH_STRING="-ppc64le" 
+   - os: linux-amd64
+     env:
+      - ARCH= "x86_64"
+      - REPO_EXT=""
 jobs:
   include:
   - name: Job 1
