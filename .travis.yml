@@ -25,37 +25,44 @@ before_script:
 # Compiler selection
 compiler:
   - gcc
+script: 
+  - cd ${TRAVIS_BUILD_DIR}
+  - make && ./test-library.out
+# stages:
+#   - build 
+#   - test
 
-stages:
-  - build 
-  - test
-
+_shared_job: &shared_job
+  script: echo "shared script config"
 jobs:
   include:
-    - stage: build
-      # Build step
-      os: linux-ppc64le
-      language: python
-      python:
-        - "3.6"
-      dist: bionic
-      env:
-        - name= "build on power"
-        - ARCH=ppc64le
-        - ARCH_STRING="-ppc64le"
-      script: 
-        - cd ${TRAVIS_BUILD_DIR}
-        - make && ./test-library.out 
+  - name: Job 1
+    <<: *shared_job
+  - name: Job 2
+    <<: *shared_job
 
-    - stage: build
-      script:
-        - mkdir hari
-      language: python
-      python:
-        - "3.6"
-    - stage: test
-      script:
-        - echo "testing for multi arcch"
+# jobs:
+#   include:
+#     - stage: build
+#       # Build step
+#       os: linux-ppc64le
+#       language: python
+#       python:
+#         - "3.6"
+#       dist: bionic
+#       env:
+#         - name= "build on power"
+#         - ARCH=ppc64le
+#         - ARCH_STRING="-ppc64le"
+#     - stage: build
+#       script:
+#         - mkdir hari
+#       language: python
+#       python:
+#         - "3.6"
+#     - stage: test
+#       script:
+#         - echo "testing for multi arcch"
 
 after_success:
 - cd ${TRAVIS_BUILD_DIR}
