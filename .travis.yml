@@ -15,12 +15,21 @@ install:
   - sudo make -C lcov-1.11/ install
   - sudo apt update && sudo apt install python3-cryptography
   - python -m pip install ansible==2.10.3 
-  - #Installing rust required for cryptography on power build
-  - wget  https://static.rust-lang.org/dist/rust-1.41.0-powerpc64le-unknown-linux-gnu.tar.gz
-  - tar -zxvf rust-1.41.0-powerpc64le-unknown-linux-gnu.tar.gz
-  - cd rust-1.41.0-powerpc64le-unknown-linux-gnu
-  - sudo sh install.sh
-  - cd ..
+  - if [[ ${ARCH} == "ppc64le" ]]
+    then
+        #Installing rust required for cryptography on power build
+        wget  https://static.rust-lang.org/dist/rust-1.41.0-powerpc64le-unknown-linux-gnu.tar.gz
+        tar -zxvf rust-1.41.0-powerpc64le-unknown-linux-gnu.tar.gz
+        cd rust-1.41.0-powerpc64le-unknown-linux-gnu
+        for file in `ls ./rustc/lib/rustlib/etc/`
+        do 
+            echo "# (C) Copyright IBM Corp. 2020" > copyright_header_file
+            cat copyright_header_file ./rustc/lib/rustlib/etc/${file} > tmp_file
+            mv tmp_file ./rustc/lib/rustlib/etc/${file}
+        done
+        sudo sh install.sh
+        cd ..
+    fi
   - pip3 install cryptography
 
   # install lcov to coveralls conversion + upload tool
@@ -37,19 +46,14 @@ compiler:
 script: 
   - cd ${TRAVIS_BUILD_DIR}
   - make && ./test-library.out
-# stages:
-#   - build:
-#     matrix:
-#       include:
-#         - os: linux-ppc64le
-#           dist: bionic
-#           env:
-#             - ARCH=ppc64le
-#             - ARCH_STRING="-ppc64le"
-#         - os: "x86_64"
-#           env:
-#             - ARCH="x86_64"
-#             - ARCH_STRING=""
+
+jobs:
+  include:
+    - os: linux-ppc64le
+      dist: bionic
+      env:
+        - ARCH=ppc64le
+        - ARCH_STRING="-ppc64le"
 #   - test
 
 # jobs:
